@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLOVAH - 프로젝트 스펙 작성</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-text">FLOVAH</span>
+        <span class="logo-sub">Project Spec</span>
+      </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-steps">
+        <div class="step active" data-step="1">
+          <div class="step-dot">1</div>
+          <span>기본 정보</span>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-dot">2</div>
+          <span>프로젝트 개요</span>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-dot">3</div>
+          <span>상세 스펙</span>
+        </div>
+        <div class="step" data-step="4">
+          <div class="step-dot">4</div>
+          <span>일정 및 예산</span>
+        </div>
+        <div class="step" data-step="5">
+          <div class="step-dot">5</div>
+          <span>추가 사항</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Container -->
+    <main class="form-container">
+      <!-- Step 1: 기본 정보 -->
+      <section class="form-step active" id="step1">
+        <h2 class="step-title">기본 정보</h2>
+        <p class="step-desc">프로젝트를 의뢰하시는 분의 정보를 입력해주세요.</p>
+
+        <div class="form-group">
+          <label for="clientName">담당자 이름 <span class="required">*</span></label>
+          <input type="text" id="clientName" placeholder="홍길동" required>
+        </div>
+
+        <div class="form-group">
+          <label for="companyName">회사/브랜드명 <span class="required">*</span></label>
+          <input type="text" id="companyName" placeholder="플로바" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">이메일 <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="example@company.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">연락처</label>
+          <input type="tel" id="phone" placeholder="010-0000-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="contactMethod">선호하는 연락 방식</label>
+          <select id="contactMethod">
+            <option value="">선택해주세요</option>
+            <option value="email">이메일</option>
+            <option value="phone">전화</option>
+            <option value="kakao">카카오톡</option>
+            <option value="slack">슬랙</option>
+            <option value="other">기타</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Step 2: 프로젝트 개요 -->
+      <section class="form-step" id="step2">
+        <h2 class="step-title">프로젝트 개요</h2>
+        <p class="step-desc">어떤 프로젝트를 진행하시려는지 알려주세요.</p>
+
+        <div class="form-group">
+          <label for="projectName">프로젝트명 <span class="required">*</span></label>
+          <input type="text" id="projectName" placeholder="예: 쇼핑몰 리뉴얼" required>
+        </div>
+
+        <div class="form-group">
+          <label>프로젝트 유형 <span class="required">*</span></label>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="projectType" value="web">
+              <span class="checkbox-custom"></span>
+              웹사이트
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="projectType" value="app">
+              <span class="checkbox-custom"></span>
+              모바일 앱
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="projectType" value="design">
+              <span class="checkbox-custom"></span>
+              UI/UX 디자인
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="projectType" value="branding">
+              <span class="checkbox-custom"></span>
+              브랜딩
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="projectType" value="marketing">
+              <span class="checkbox-custom"></span>
+              마케팅/광고
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="projectType" value="video">
+              <span class="checkbox-custom"></span>
+              영상/콘텐츠
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="projectType" value="other">
+              <span class="checkbox-custom"></span>
+              기타
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="projectGoal">프로젝트 목적 <span class="required">*</span></label>
+          <textarea id="projectGoal" rows="4" placeholder="프로젝트를 통해 달성하고자 하는 목표를 작성해주세요.&#10;예: 기존 웹사이트의 사용성을 개선하여 전환율을 높이고 싶습니다." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="targetAudience">타겟 고객/사용자</label>
+          <textarea id="targetAudience" rows="3" placeholder="이 프로젝트의 주요 타겟 사용자를 설명해주세요.&#10;예: 20-30대 여성, 패션에 관심이 많은 MZ세대"></textarea>
+        </div>
+      </section>
+
+      <!-- Step 3: 상세 스펙 -->
+      <section class="form-step" id="step3">
+        <h2 class="step-title">상세 스펙</h2>
+        <p class="step-desc">프로젝트의 구체적인 요구사항을 작성해주세요.</p>
+
+        <div class="form-group">
+          <label for="coreFeatures">핵심 기능/요구사항 <span class="required">*</span></label>
+          <textarea id="coreFeatures" rows="5" placeholder="필수적으로 포함되어야 하는 기능들을 작성해주세요.&#10;예:&#10;- 회원가입/로그인&#10;- 상품 검색 및 필터링&#10;- 장바구니 및 결제 기능&#10;- 관리자 대시보드" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="additionalFeatures">추가 희망 기능</label>
+          <textarea id="additionalFeatures" rows="4" placeholder="필수는 아니지만 있으면 좋은 기능들을 작성해주세요.&#10;예:&#10;- 실시간 채팅 상담&#10;- 추천 시스템&#10;- SNS 공유 기능"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="designRef">디자인 레퍼런스</label>
+          <textarea id="designRef" rows="3" placeholder="참고하고 싶은 웹사이트나 앱, 디자인 스타일이 있다면 알려주세요.&#10;예: 무신사, 29CM 같은 깔끔한 커머스 스타일"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>기술 요구사항</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="techReq" value="responsive">
+              <span class="checkbox-custom"></span>
+              반응형 웹
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="techReq" value="seo">
+              <span class="checkbox-custom"></span>
+              SEO 최적화
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="techReq" value="multilang">
+              <span class="checkbox-custom"></span>
+              다국어 지원
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="techReq" value="analytics">
+              <span class="checkbox-custom"></span>
+              분석/통계
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="techReq" value="cms">
+              <span class="checkbox-custom"></span>
+              CMS (콘텐츠 관리)
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="techReq" value="api">
+              <span class="checkbox-custom"></span>
+              외부 API 연동
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 4: 일정 및 예산 -->
+      <section class="form-step" id="step4">
+        <h2 class="step-title">일정 및 예산</h2>
+        <p class="step-desc">프로젝트의 일정과 예산 범위를 알려주세요.</p>
+
+        <div class="form-group">
+          <label for="startDate">희망 시작일</label>
+          <input type="date" id="startDate">
+        </div>
+
+        <div class="form-group">
+          <label for="deadline">희망 완료일</label>
+          <input type="date" id="deadline">
+        </div>
+
+        <div class="form-group">
+          <label for="budget">예산 범위 <span class="required">*</span></label>
+          <select id="budget" required>
+            <option value="">선택해주세요</option>
+            <option value="under500">500만원 미만</option>
+            <option value="500to1000">500만원 ~ 1,000만원</option>
+            <option value="1000to3000">1,000만원 ~ 3,000만원</option>
+            <option value="3000to5000">3,000만원 ~ 5,000만원</option>
+            <option value="5000to1억">5,000만원 ~ 1억</option>
+            <option value="over1억">1억 이상</option>
+            <option value="discuss">협의 필요</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>유지보수 필요 여부</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="maintenance" value="yes">
+              <span class="radio-custom"></span>
+              네, 유지보수가 필요합니다
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="maintenance" value="no">
+              <span class="radio-custom"></span>
+              아니요, 필요하지 않습니다
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="maintenance" value="undecided">
+              <span class="radio-custom"></span>
+              아직 미정입니다
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 5: 추가 사항 -->
+      <section class="form-step" id="step5">
+        <h2 class="step-title">추가 사항</h2>
+        <p class="step-desc">기타 참고사항이나 첨부할 자료가 있으시면 알려주세요.</p>
+
+        <div class="form-group">
+          <label for="existingAssets">기존 자료</label>
+          <textarea id="existingAssets" rows="3" placeholder="기존 웹사이트, 로고, 브랜드 가이드 등 보유하고 있는 자료를 알려주세요."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="competitors">경쟁사/벤치마킹 사이트</label>
+          <textarea id="competitors" rows="3" placeholder="경쟁사 또는 벤치마킹하고 싶은 서비스가 있다면 알려주세요."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="additionalNotes">기타 요청사항</label>
+          <textarea id="additionalNotes" rows="4" placeholder="프로젝트와 관련하여 추가로 전달하고 싶은 내용을 자유롭게 작성해주세요."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="fileUpload">파일 첨부</label>
+          <div class="file-upload-area" id="fileUploadArea">
+            <div class="file-upload-icon">📎</div>
+            <p>파일을 드래그하거나 클릭하여 업로드</p>
+            <span class="file-upload-hint">PDF, DOC, PPT, 이미지 파일 (최대 10MB)</span>
+            <input type="file" id="fileUpload" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.gif" hidden>
+          </div>
+          <div class="file-list" id="fileList"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label agreement">
+            <input type="checkbox" id="agreePrivacy" required>
+            <span class="checkbox-custom"></span>
+            <span>개인정보 수집 및 이용에 동의합니다. <span class="required">*</span></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 제출 완료 -->
+      <section class="form-step" id="stepComplete">
+        <div class="complete-container">
+          <div class="complete-icon">✓</div>
+          <h2 class="complete-title">제출이 완료되었습니다!</h2>
+          <p class="complete-desc">
+            프로젝트 스펙이 성공적으로 전달되었습니다.<br>
+            담당자가 검토 후 빠른 시일 내에 연락드리겠습니다.
+          </p>
+          <div class="complete-summary" id="completeSummary"></div>
+          <button class="btn btn-secondary" onclick="location.reload()">새 프로젝트 작성하기</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons" id="navButtons">
+      <button class="btn btn-outline" id="prevBtn" onclick="changeStep(-1)" style="display:none;">이전</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">다음 단계</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 FLOVAH. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
