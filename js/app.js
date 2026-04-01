@@ -255,9 +255,9 @@
   }
 
   // ==========================================
-  // Email: FormSubmit.co (gim@flovah.com)
+  // Email: Web3Forms (gim@flovah.com)
   // ==========================================
-  var FORMSUBMIT_URL = 'https://formsubmit.co/ajax/gim@flovah.com';
+  var WEB3FORMS_KEY = '273fa846-7819-42f7-96c3-63249dd6a2d5';
 
   function submit() {
     var d = collectData();
@@ -303,15 +303,16 @@
       + (d.additionalNotes || '없음');
 
     var body = {
-      _subject: '[FLOVAH] 새 프로젝트 스펙 - ' + d.projectName + ' (' + d.companyName + ')',
-      _replyto: d.email,
-      _template: 'box',
-      name: d.clientName + ' (' + d.companyName + ')',
+      access_key: WEB3FORMS_KEY,
+      subject: '[FLOVAH] 새 프로젝트 스펙 - ' + d.projectName + ' (' + d.companyName + ')',
+      from_name: d.clientName + ' (' + d.companyName + ')',
+      replyto: d.email,
+      name: d.clientName,
       email: d.email,
       message: message
     };
 
-    fetch(FORMSUBMIT_URL, {
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
