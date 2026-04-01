@@ -504,6 +504,32 @@
   });
 
   // ========================================
+  // Dark Mode
+  // ========================================
+
+  var darkModeToggle = document.getElementById('darkModeToggle');
+  var toggleIcon = document.getElementById('toggleIcon');
+
+  function setDarkMode(isDark) {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    toggleIcon.innerHTML = isDark ? '&#9728;' : '&#9790;';
+    localStorage.setItem('flovah_darkmode', isDark ? 'true' : 'false');
+  }
+
+  darkModeToggle.addEventListener('click', function () {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    setDarkMode(!isDark);
+  });
+
+  // Init dark mode from saved preference or system preference
+  var savedDark = localStorage.getItem('flovah_darkmode');
+  if (savedDark === 'true') {
+    setDarkMode(true);
+  } else if (savedDark === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setDarkMode(true);
+  }
+
+  // ========================================
   // Initialize
   // ========================================
 
