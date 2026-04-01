@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  var TOTAL = 16;
+  var TOTAL = 17;
   var current = -1; // -1 = intro
   var screens = [];
   var data = {};
@@ -105,6 +105,18 @@
   document.querySelectorAll('.q-options.multi .q-option').forEach(function (btn) {
     btn.addEventListener('click', function () {
       btn.classList.toggle('selected');
+
+      // Show/hide custom resolution input
+      if (btn.closest('#resolutionOptions') && btn.dataset.value === 'custom') {
+        var customInput = document.getElementById('customResolution');
+        if (btn.classList.contains('selected')) {
+          customInput.style.display = 'block';
+          customInput.focus();
+        } else {
+          customInput.style.display = 'none';
+          customInput.value = '';
+        }
+      }
     });
   });
 
@@ -232,6 +244,16 @@
       types.push(b.dataset.value);
     });
 
+    var resolutions = [];
+    document.querySelectorAll('#resolutionOptions .q-option.selected').forEach(function (b) {
+      if (b.dataset.value === 'custom') {
+        var custom = document.getElementById('customResolution').value.trim();
+        if (custom) resolutions.push(custom);
+      } else {
+        resolutions.push(b.dataset.value);
+      }
+    });
+
     return {
       clientName: document.getElementById('clientName').value.trim(),
       companyName: document.getElementById('companyName').value.trim(),
@@ -245,6 +267,7 @@
       coreFeatures: document.getElementById('coreFeatures').value.trim(),
       additionalFeatures: document.getElementById('additionalFeatures').value.trim(),
       designRef: document.getElementById('designRef').value.trim(),
+      videoResolutions: resolutions,
       budget: document.getElementById('budget').value,
       startDate: document.getElementById('startDate').value,
       deadline: document.getElementById('deadline').value,
@@ -293,7 +316,8 @@
       + '■ 상세 스펙\n'
       + '핵심 기능:\n' + d.coreFeatures + '\n\n'
       + '추가 희망 기능:\n' + (d.additionalFeatures || '없음') + '\n\n'
-      + '디자인 레퍼런스: ' + (d.designRef || '없음') + '\n\n'
+      + '디자인 레퍼런스: ' + (d.designRef || '없음') + '\n'
+      + '영상 해상도: ' + (d.videoResolutions.length ? d.videoResolutions.join(', ') : '미선택') + '\n\n'
       + '■ 일정 및 예산\n'
       + '예산: ' + budgetText + '\n'
       + '시작일: ' + (d.startDate || '미정') + '\n'
@@ -355,6 +379,7 @@
     html += row('이메일', d.email);
     html += row('프로젝트', d.projectName);
     html += row('유형', d.projectTypes.map(function (t) { return typeLabels[t] || t; }).join(', '));
+    html += row('영상 해상도', d.videoResolutions.length ? d.videoResolutions.join(', ') : '');
     html += row('예산', budgetLabels[d.budget] || d.budget);
     html += row('제출일', new Date(d.submittedAt).toLocaleString('ko-KR'));
 
