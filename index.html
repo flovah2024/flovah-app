@@ -107,7 +107,18 @@
     <div class="q-inner">
       <div class="q-counter"><span class="q-num">8</span> / 17</div>
       <h2 class="q-title">프로젝트의 목적은 무엇인가요?</h2>
-      <textarea class="q-textarea" id="projectGoal" rows="4" placeholder="달성하고자 하는 목표를 자유롭게 작성해주세요."></textarea>
+      <p class="q-sub">복수 선택 가능합니다.</p>
+      <div class="q-options multi" id="goalOptions">
+        <button class="q-option" data-value="신규 서비스 런칭">신규 서비스 런칭</button>
+        <button class="q-option" data-value="기존 서비스 리뉴얼">기존 서비스 리뉴얼</button>
+        <button class="q-option" data-value="매출/전환율 향상">매출/전환율 향상</button>
+        <button class="q-option" data-value="브랜드 인지도 강화">브랜드 인지도 강화</button>
+        <button class="q-option" data-value="사용자 경험 개선">사용자 경험 개선</button>
+        <button class="q-option" data-value="내부 업무 효율화">내부 업무 효율화</button>
+        <button class="q-option" data-value="콘텐츠/영상 제작">콘텐츠/영상 제작</button>
+        <button class="q-option" data-value="other">기타 (직접 입력)</button>
+      </div>
+      <input type="text" class="q-input" id="goalCustom" placeholder="목적을 입력해주세요" style="display:none; margin-top:16px;">
       <div class="q-error" id="q7Error"></div>
     </div>
   </div>
@@ -116,16 +127,46 @@
     <div class="q-inner">
       <div class="q-counter"><span class="q-num">9</span> / 17</div>
       <h2 class="q-title">타겟 고객은 누구인가요?</h2>
-      <textarea class="q-textarea" id="targetAudience" rows="3" placeholder="예: 20-30대 여성, 패션에 관심 있는 MZ세대"></textarea>
+      <p class="q-sub">복수 선택 가능합니다.</p>
+      <div class="q-options multi" id="targetOptions">
+        <button class="q-option" data-value="10대">10대</button>
+        <button class="q-option" data-value="20대">20대</button>
+        <button class="q-option" data-value="30대">30대</button>
+        <button class="q-option" data-value="40대">40대</button>
+        <button class="q-option" data-value="50대 이상">50대 이상</button>
+        <button class="q-option" data-value="남성">남성</button>
+        <button class="q-option" data-value="여성">여성</button>
+        <button class="q-option" data-value="B2B/기업">B2B/기업</button>
+        <button class="q-option" data-value="전체">전체 (불특정 다수)</button>
+        <button class="q-option" data-value="other">기타 (직접 입력)</button>
+      </div>
+      <input type="text" class="q-input" id="targetCustom" placeholder="타겟 고객을 입력해주세요" style="display:none; margin-top:16px;">
     </div>
   </div>
 
   <div class="screen question-screen" id="q9" data-required="true">
     <div class="q-inner">
       <div class="q-counter"><span class="q-num">10</span> / 17</div>
-      <h2 class="q-title">핵심 기능을 알려주세요</h2>
-      <p class="q-sub">필수로 포함되어야 하는 기능들을 작성해주세요.</p>
-      <textarea class="q-textarea" id="coreFeatures" rows="5" placeholder="- 회원가입/로그인&#10;- 상품 검색 및 필터링&#10;- 장바구니 및 결제&#10;- 관리자 대시보드"></textarea>
+      <h2 class="q-title">핵심 기능을 선택해주세요</h2>
+      <p class="q-sub">필수로 포함되어야 하는 기능들을 선택해주세요. 복수 선택 가능합니다.</p>
+      <div class="q-options multi" id="featureOptions">
+        <button class="q-option" data-value="회원가입/로그인">회원가입/로그인</button>
+        <button class="q-option" data-value="결제/구매">결제/구매</button>
+        <button class="q-option" data-value="검색/필터">검색/필터</button>
+        <button class="q-option" data-value="관리자 대시보드">관리자 대시보드</button>
+        <button class="q-option" data-value="채팅/메시징">채팅/메시징</button>
+        <button class="q-option" data-value="알림(푸시/이메일)">알림(푸시/이메일)</button>
+        <button class="q-option" data-value="게시판/커뮤니티">게시판/커뮤니티</button>
+        <button class="q-option" data-value="예약/스케줄링">예약/스케줄링</button>
+        <button class="q-option" data-value="지도/위치 기반">지도/위치 기반</button>
+        <button class="q-option" data-value="소셜 로그인">소셜 로그인</button>
+        <button class="q-option" data-value="파일 업로드/관리">파일 업로드/관리</button>
+        <button class="q-option" data-value="통계/분석">통계/분석</button>
+        <button class="q-option" data-value="다국어 지원">다국어 지원</button>
+        <button class="q-option" data-value="API 연동">API 연동</button>
+        <button class="q-option" data-value="other">기타 (직접 입력)</button>
+      </div>
+      <input type="text" class="q-input" id="featureCustom" placeholder="필요한 기능을 입력해주세요" style="display:none; margin-top:16px;">
       <div class="q-error" id="q9Error"></div>
     </div>
   </div>
@@ -134,15 +175,39 @@
     <div class="q-inner">
       <div class="q-counter"><span class="q-num">11</span> / 17</div>
       <h2 class="q-title">추가로 원하는 기능이 있나요?</h2>
-      <textarea class="q-textarea" id="additionalFeatures" rows="4" placeholder="있으면 좋은 기능들을 자유롭게 작성해주세요."></textarea>
+      <p class="q-sub">있으면 좋은 기능을 선택해주세요.</p>
+      <div class="q-options multi" id="extraFeatureOptions">
+        <button class="q-option" data-value="실시간 채팅 상담">실시간 채팅 상담</button>
+        <button class="q-option" data-value="AI/추천 시스템">AI/추천 시스템</button>
+        <button class="q-option" data-value="SNS 공유">SNS 공유</button>
+        <button class="q-option" data-value="리뷰/평점">리뷰/평점</button>
+        <button class="q-option" data-value="쿠폰/포인트">쿠폰/포인트</button>
+        <button class="q-option" data-value="CMS (콘텐츠 관리)">CMS (콘텐츠 관리)</button>
+        <button class="q-option" data-value="SEO 최적화">SEO 최적화</button>
+        <button class="q-option" data-value="반응형 웹">반응형 웹</button>
+        <button class="q-option" data-value="다크모드">다크모드</button>
+        <button class="q-option" data-value="other">기타 (직접 입력)</button>
+      </div>
+      <input type="text" class="q-input" id="extraFeatureCustom" placeholder="추가 기능을 입력해주세요" style="display:none; margin-top:16px;">
     </div>
   </div>
 
   <div class="screen question-screen" id="q11">
     <div class="q-inner">
       <div class="q-counter"><span class="q-num">12</span> / 17</div>
-      <h2 class="q-title">참고할 디자인이나 레퍼런스가 있나요?</h2>
-      <textarea class="q-textarea" id="designRef" rows="3" placeholder="참고하고 싶은 웹사이트, 앱, 디자인 스타일 등"></textarea>
+      <h2 class="q-title">선호하는 디자인 스타일은?</h2>
+      <p class="q-sub">복수 선택 가능합니다.</p>
+      <div class="q-options multi" id="designOptions">
+        <button class="q-option" data-value="미니멀/심플">미니멀/심플</button>
+        <button class="q-option" data-value="모던/트렌디">모던/트렌디</button>
+        <button class="q-option" data-value="클래식/고급스러운">클래식/고급스러운</button>
+        <button class="q-option" data-value="귀여운/친근한">귀여운/친근한</button>
+        <button class="q-option" data-value="다크/시크">다크/시크</button>
+        <button class="q-option" data-value="컬러풀/비비드">컬러풀/비비드</button>
+        <button class="q-option" data-value="기업형/전문적">기업형/전문적</button>
+        <button class="q-option" data-value="other">기타 (직접 입력)</button>
+      </div>
+      <input type="text" class="q-input" id="designCustom" placeholder="레퍼런스 사이트나 스타일을 입력해주세요" style="display:none; margin-top:16px;">
     </div>
   </div>
 
