@@ -521,13 +521,8 @@
     setDarkMode(!isDark);
   });
 
-  // Init dark mode from saved preference or system preference
-  var savedDark = localStorage.getItem('flovah_darkmode');
-  if (savedDark === 'true') {
-    setDarkMode(true);
-  } else if (savedDark === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    setDarkMode(true);
-  }
+  // Always start in dark mode
+  setDarkMode(true);
 
   // ========================================
   // Initialize
