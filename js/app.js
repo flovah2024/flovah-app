@@ -254,6 +254,12 @@
     };
   }
 
+  // ==========================================
+  // Web3Forms Access Key
+  // https://web3forms.com 에서 이메일 입력 후 발급받은 키를 여기에 입력하세요.
+  // ==========================================
+  var WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE';
+
   function submit() {
     var d = collectData();
 
@@ -261,16 +267,67 @@
     nextBtn.disabled = true;
     nextBtn.textContent = '제출 중...';
 
-    setTimeout(function () {
-      showComplete(d);
+    var typeLabels = {
+      web: '웹사이트', app: '모바일 앱', design: 'UI/UX 디자인',
+      branding: '브랜딩', marketing: '마케팅/광고', video: '영상/콘텐츠', other: '기타'
+    };
+    var budgetLabels = {
+      under500: '500만원 미만', '500to1000': '500만원 ~ 1,000만원',
+      '1000to3000': '1,000만원 ~ 3,000만원', '3000to5000': '3,000만원 ~ 5,000만원',
+      '5000to1억': '5,000만원 ~ 1억', 'over1억': '1억 이상', discuss: '협의 필요'
+    };
 
-      // Save
+    // Build email body
+    var body = {
+      access_key: WEB3FORMS_KEY,
+      subject: '[FLOVAH] 새 프로젝트 스펙 - ' + d.projectName + ' (' + d.companyName + ')',
+      from_name: d.clientName + ' - ' + d.companyName,
+      reply_to: d.email,
+      '담당자': d.clientName,
+      '회사/브랜드': d.companyName,
+      '이메일': d.email,
+      '연락처': d.phone || '미입력',
+      '선호 연락방식': d.contactMethod || '미선택',
+      '프로젝트명': d.projectName,
+      '프로젝트 유형': d.projectTypes.map(function (t) { return typeLabels[t] || t; }).join(', '),
+      '프로젝트 목적': d.projectGoal,
+      '타겟 고객': d.targetAudience || '미입력',
+      '핵심 기능': d.coreFeatures,
+      '추가 희망 기능': d.additionalFeatures || '없음',
+      '디자인 레퍼런스': d.designRef || '없음',
+      '예산 범위': budgetLabels[d.budget] || d.budget,
+      '희망 시작일': d.startDate || '미정',
+      '희망 완료일': d.deadline || '미정',
+      '유지보수': d.maintenance || '미선택',
+      '추가 요청사항': d.additionalNotes || '없음'
+    };
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (result) {
+      if (result.success) {
+        showComplete(d);
+      } else {
+        showComplete(d);
+        console.warn('Email delivery issue:', result);
+      }
+    })
+    .catch(function (err) {
+      console.error('Submit error:', err);
+      showComplete(d);
+    })
+    .finally(function () {
+      // Save locally as backup
       try {
         var list = JSON.parse(localStorage.getItem('flovah_submissions') || '[]');
         list.push(d);
         localStorage.setItem('flovah_submissions', JSON.stringify(list));
       } catch (e) {}
-    }, 800);
+    });
   }
 
   function showComplete(d) {
