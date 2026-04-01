@@ -255,15 +255,13 @@
   }
 
   // ==========================================
-  // Web3Forms Access Key
-  // https://web3forms.com 에서 이메일 입력 후 발급받은 키를 여기에 입력하세요.
+  // Email: FormSubmit.co (gim@flovah.com)
   // ==========================================
-  var WEB3FORMS_KEY = 'YOUR_ACCESS_KEY_HERE';
+  var FORMSUBMIT_URL = 'https://formsubmit.co/ajax/gim@flovah.com';
 
   function submit() {
     var d = collectData();
 
-    // Show loading state
     nextBtn.disabled = true;
     nextBtn.textContent = '제출 중...';
 
@@ -277,51 +275,60 @@
       '5000to1억': '5,000만원 ~ 1억', 'over1억': '1억 이상', discuss: '협의 필요'
     };
 
-    // Build email body
+    var projectTypeText = d.projectTypes.map(function (t) { return typeLabels[t] || t; }).join(', ');
+    var budgetText = budgetLabels[d.budget] || d.budget;
+
+    var message = ''
+      + '■ 기본 정보\n'
+      + '담당자: ' + d.clientName + '\n'
+      + '회사/브랜드: ' + d.companyName + '\n'
+      + '이메일: ' + d.email + '\n'
+      + '연락처: ' + (d.phone || '미입력') + '\n'
+      + '선호 연락방식: ' + (d.contactMethod || '미선택') + '\n\n'
+      + '■ 프로젝트 개요\n'
+      + '프로젝트명: ' + d.projectName + '\n'
+      + '유형: ' + projectTypeText + '\n'
+      + '목적: ' + d.projectGoal + '\n'
+      + '타겟 고객: ' + (d.targetAudience || '미입력') + '\n\n'
+      + '■ 상세 스펙\n'
+      + '핵심 기능:\n' + d.coreFeatures + '\n\n'
+      + '추가 희망 기능:\n' + (d.additionalFeatures || '없음') + '\n\n'
+      + '디자인 레퍼런스: ' + (d.designRef || '없음') + '\n\n'
+      + '■ 일정 및 예산\n'
+      + '예산: ' + budgetText + '\n'
+      + '시작일: ' + (d.startDate || '미정') + '\n'
+      + '완료일: ' + (d.deadline || '미정') + '\n'
+      + '유지보수: ' + (d.maintenance || '미선택') + '\n\n'
+      + '■ 추가 사항\n'
+      + (d.additionalNotes || '없음');
+
     var body = {
-      access_key: WEB3FORMS_KEY,
-      subject: '[FLOVAH] 새 프로젝트 스펙 - ' + d.projectName + ' (' + d.companyName + ')',
-      from_name: d.clientName + ' - ' + d.companyName,
-      reply_to: d.email,
-      '담당자': d.clientName,
-      '회사/브랜드': d.companyName,
-      '이메일': d.email,
-      '연락처': d.phone || '미입력',
-      '선호 연락방식': d.contactMethod || '미선택',
-      '프로젝트명': d.projectName,
-      '프로젝트 유형': d.projectTypes.map(function (t) { return typeLabels[t] || t; }).join(', '),
-      '프로젝트 목적': d.projectGoal,
-      '타겟 고객': d.targetAudience || '미입력',
-      '핵심 기능': d.coreFeatures,
-      '추가 희망 기능': d.additionalFeatures || '없음',
-      '디자인 레퍼런스': d.designRef || '없음',
-      '예산 범위': budgetLabels[d.budget] || d.budget,
-      '희망 시작일': d.startDate || '미정',
-      '희망 완료일': d.deadline || '미정',
-      '유지보수': d.maintenance || '미선택',
-      '추가 요청사항': d.additionalNotes || '없음'
+      _subject: '[FLOVAH] 새 프로젝트 스펙 - ' + d.projectName + ' (' + d.companyName + ')',
+      _replyto: d.email,
+      _template: 'box',
+      name: d.clientName + ' (' + d.companyName + ')',
+      email: d.email,
+      message: message
     };
 
-    fetch('https://api.web3forms.com/submit', {
+    fetch(FORMSUBMIT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify(body)
     })
     .then(function (res) { return res.json(); })
     .then(function (result) {
-      if (result.success) {
-        showComplete(d);
-      } else {
-        showComplete(d);
-        console.warn('Email delivery issue:', result);
-      }
+      showComplete(d);
+      if (!result.success) console.warn('Email issue:', result);
     })
     .catch(function (err) {
       console.error('Submit error:', err);
       showComplete(d);
     })
     .finally(function () {
-      // Save locally as backup
       try {
         var list = JSON.parse(localStorage.getItem('flovah_submissions') || '[]');
         list.push(d);
